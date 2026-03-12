@@ -1,0 +1,8 @@
+# Ignore everything
+*
+
+# Allow these to be committed
+!.gitignore
+!README.md
+!dist/
+!dist/*
