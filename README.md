@@ -1,64 +1,99 @@
 # OpenClaw 安装助手
 
-一键安装 OpenClaw 的交互式助手，下载即用，无需安装任何依赖。
+帮你一键安装 OpenClaw，全程有 AI 小助手引导，跟着走就行。
 
-## 下载
+下载一个文件，双击（或在终端运行）就能用，不需要提前装任何东西。
 
-根据你的系统选择对应文件：
+---
 
-| 系统 | 文件 |
-|------|------|
-| macOS (Apple 芯片 M1/M2/M3/M4) | `openclaw-install-darwin-arm64` |
-| macOS (Intel) | `openclaw-install-darwin-amd64` |
-| Linux (x86_64) | `openclaw-install-linux-amd64` |
-| Linux (ARM64) | `openclaw-install-linux-arm64` |
-| Windows | `openclaw-install-windows-amd64.exe` |
+## 第一步：下载
 
-> 不确定自己的芯片？macOS 点击左上角  → 关于本机，看到 "Apple M" 开头选 arm64，看到 "Intel" 选 amd64。
+找到你电脑对应的文件，点击下载：
 
-## 使用方法
+**Mac 电脑**
+- 如果你的 Mac 是 2020 年以后买的 → 下载 `openclaw-install-darwin-arm64`
+- 如果你的 Mac 比较老（Intel 处理器）→ 下载 `openclaw-install-darwin-amd64`
 
-### macOS / Linux
+> 怎么看？点击屏幕左上角的  → **关于本机**，如果看到「Apple M1/M2/M3/M4」就选第一个，看到「Intel」就选第二个。
 
-```bash
-# 1. 赋予执行权限（只需一次）
-chmod +x openclaw-install-darwin-arm64
+**Windows 电脑**
+- 下载 `openclaw-install-windows-amd64.exe`
 
-# 2. 运行
-./openclaw-install-darwin-arm64
+**Linux**
+- 下载 `openclaw-install-linux-amd64`（大多数服务器选这个）
+
+---
+
+## 第二步：运行
+
+### Mac
+
+1. 打开「终端」应用（在启动台搜索"终端"或"Terminal"）
+2. 把下载的文件拖进终端窗口，你会看到一个路径，**先别按回车**
+3. 回到终端，依次输入以下两行命令（把路径换成你的文件位置）：
+
+```
+chmod +x ~/Downloads/openclaw-install-darwin-arm64
+~/Downloads/openclaw-install-darwin-arm64
 ```
 
-> macOS 首次运行可能提示"无法验证开发者"，请前往 **系统设置 → 隐私与安全性**，点击"仍要打开"。
+4. 浏览器会自动打开安装页面，跟着提示操作就行
+
+> **如果 Mac 弹窗说「无法打开」或「无法验证开发者」：**
+> 打开 **系统设置 → 隐私与安全性**，往下翻，找到提示信息，点「仍要打开」，然后重新运行上面的命令。
+>
+> **如果提示「已损坏」：** 在终端执行下面这行，然后重新运行：
+> ```
+> xattr -cr ~/Downloads/openclaw-install-darwin-arm64
+> ```
 
 ### Windows
 
-双击 `openclaw-install-windows-amd64.exe` 即可运行。
+双击下载的 `.exe` 文件就能运行。浏览器会自动打开安装页面。
 
-## 启动选项
+> 如果 Windows 弹出安全警告，点「更多信息」→「仍要运行」。
 
-程序默认以 **Web 界面** 启动（自动打开浏览器）。
+### Linux
 
-```bash
-# 默认 Web 界面
-./openclaw-install-darwin-arm64
+```
+chmod +x openclaw-install-linux-amd64
+./openclaw-install-linux-amd64
+```
 
-# 使用终端界面
+---
+
+## 运行成功是什么样？
+
+程序启动后，你会在终端看到类似这样的提示：
+
+```
+🐾 OpenClaw 安装助手 (Web UI)
+   浏览器访问: http://localhost:12345
+   按 Ctrl+C 退出
+```
+
+浏览器会自动弹出一个安装页面，AI 小助手「小爪」会一步步带你完成安装。
+
+如果浏览器没有自动打开，手动复制终端里的地址（`http://localhost:xxxxx`），粘贴到浏览器地址栏打开就行。
+
+---
+
+## 想用终端界面？
+
+如果你更喜欢在终端里操作（不打开浏览器），可以加个参数：
+
+```
 ./openclaw-install-darwin-arm64 --ui tui
-
-# 查看版本
-./openclaw-install-darwin-arm64 --version
 ```
 
-## 常见问题
+---
 
-**Q: 运行后浏览器没有自动打开？**
-A: 查看终端输出的地址（如 `http://localhost:12345`），手动在浏览器中打开。
+## 遇到问题？
 
-**Q: macOS 提示"已损坏，无法打开"？**
-A: 在终端执行：
-```bash
-xattr -cr ./openclaw-install-darwin-arm64
-```
-
-**Q: 如何退出？**
-A: Web 模式下按 `Ctrl+C`；终端模式下按 `Ctrl+C`。
+| 问题 | 解决办法 |
+|------|---------|
+| Mac 弹窗「无法验证开发者」 | 系统设置 → 隐私与安全性 → 仍要打开 |
+| Mac 提示「已损坏」 | 终端执行 `xattr -cr 文件路径` |
+| Windows 安全警告 | 点「更多信息」→「仍要运行」 |
+| 浏览器没自动打开 | 手动复制终端里的 `http://localhost:xxxxx` 地址到浏览器 |
+| 想退出程序 | 在终端按 `Ctrl+C` |
