@@ -8,19 +8,21 @@
 
 ## 第一步：下载
 
-找到你电脑对应的文件，点击下载：
+👉 **[点这里去下载页面](https://github.com/AIhubmix/install-agent/releases/latest)**
+
+在下载页面找到你电脑对应的文件，点击即可下载：
 
 **Mac 电脑**
-- 如果你的 Mac 是 2020 年以后买的 → 下载 `openclaw-install-darwin-arm64`
-- 如果你的 Mac 比较老（Intel 处理器）→ 下载 `openclaw-install-darwin-amd64`
+- 如果你的 Mac 是 2020 年以后买的 → 下载 [`openclaw-install-darwin-arm64`](https://github.com/AIhubmix/install-agent/releases/latest/download/openclaw-install-darwin-arm64)
+- 如果你的 Mac 比较老（Intel 处理器）→ 下载 [`openclaw-install-darwin-amd64`](https://github.com/AIhubmix/install-agent/releases/latest/download/openclaw-install-darwin-amd64)
 
 > 怎么看？点击屏幕左上角的  → **关于本机**，如果看到「Apple M1/M2/M3/M4」就选第一个，看到「Intel」就选第二个。
 
 **Windows 电脑**
-- 下载 `openclaw-install-windows-amd64.exe`
+- 下载 [`openclaw-install-windows-amd64.exe`](https://github.com/AIhubmix/install-agent/releases/latest/download/openclaw-install-windows-amd64.exe)
 
 **Linux**
-- 下载 `openclaw-install-linux-amd64`（大多数服务器选这个）
+- 下载 [`openclaw-install-linux-amd64`](https://github.com/AIhubmix/install-agent/releases/latest/download/openclaw-install-linux-amd64)（大多数服务器选这个）
 
 ---
 
