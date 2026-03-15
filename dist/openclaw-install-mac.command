@@ -21,12 +21,11 @@ if [ -z "$BIN" ]; then
     # 本地没有，从 GitHub latest release 下载
     BASE_URL="https://github.com/AIhubmix/install-agent/releases/latest/download"
 
-    # 先获取 latest release 的实际版本号
+    # 先获取 latest release 的实际版本号（从 302 重定向 header 提取，不跟随到 CDN）
     echo ""
     echo "🐾 首次运行，正在获取最新版本信息..."
-    RELEASE_URL=$(curl -fsSL -o /dev/null -w '%{url_effective}' "$BASE_URL/checksums.txt" 2>/dev/null || true)
-    # 从重定向 URL 中提取版本号
-    RELEASE_VER=$(echo "$RELEASE_URL" | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+    LOCATION=$(curl -fsSI "https://github.com/AIhubmix/install-agent/releases/latest" 2>/dev/null | grep -i "^location:" | head -1)
+    RELEASE_VER=$(echo "$LOCATION" | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | head -1)
     if [ -z "$RELEASE_VER" ]; then
         echo "❌ 无法获取最新版本号，请检查网络连接。"
         echo ""
