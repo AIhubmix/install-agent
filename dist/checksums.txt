@@ -1,6 +1,6 @@
-01a507a315c48f8731239438134a4b6ab3e63d7c4017b6f0e689c1be1abaee12  openclaw-install-1.0.2-darwin-amd64
-4823c16e4c02b01a351e3779878a086e357216f919f918367bd4da8218a22544  openclaw-install-1.0.2-darwin-arm64
-0dce51d66686d4d5ac0f81d56c40e62bea7f9e892818f53b4887fa3814e3f333  openclaw-install-1.0.2-linux-amd64
-337eb12bdb8d8103bc47a0b5f308967b1903497c5de7f15bc4c92358e35cea85  openclaw-install-1.0.2-linux-arm64
-c883a8562bc4d440846d60f016092fd41f56fd815d92b7e362caaeb99987ae1b  openclaw-install-1.0.2-windows-amd64.exe
-475f60e7677fec0aa3ed28fe4a62060e3495123851dbe847d396799c6a07b48f  openclaw-install-mac.command.zip
+47fe1e96d8805aae30d98d6e7ff9122a65af6b01632d3a381c355004792b24f3  openclaw-install-1.0.3-darwin-amd64
+b2b6349230c361281fde204b3e2fb357b2890b99e1ae0883438a2aa56631a032  openclaw-install-1.0.3-darwin-arm64
+9e17de21e0fd0faa1cbd7baee4ef6428a15e6a5c05a6aa837d560d9f76ff78ff  openclaw-install-1.0.3-linux-amd64
+35caae40459f30a01cbaf0a6dcf1fab9deccfa4b1c97d14ba47017598c70243a  openclaw-install-1.0.3-linux-arm64
+3bb7da1863ac63542ed36bba07b5f35eeb29d82e21988f0680a15340eb65bb6f  openclaw-install-1.0.3-windows-amd64.exe
+185ee12990a0cfacb1d2391c5b0a94ab64544c52332640839ca9cebdb913e102  openclaw-install-mac.command.zip
