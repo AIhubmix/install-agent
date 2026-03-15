@@ -37,16 +37,46 @@ if [ -z "$BIN" ]; then
     VER="${RELEASE_VER#v}"
     BIN="openclaw-install-${VER}-${SUFFIX}"
 
+    # GitHub 加速镜像列表（优先尝试镜像，最后回退直连）
+    DIRECT_URL="$BASE_URL/$BIN"
+    MIRRORS=(
+        "https://ghfast.top/$DIRECT_URL"
+        "https://gh-proxy.com/$DIRECT_URL"
+        "https://github.moeyy.xyz/$DIRECT_URL"
+        "$DIRECT_URL"
+    )
+
     echo "   下载: $BIN"
     echo ""
-    if command -v curl &>/dev/null; then
-        curl -fSL --progress-bar -o "$BIN" "$BASE_URL/$BIN"
-    elif command -v wget &>/dev/null; then
-        wget --show-progress -q -O "$BIN" "$BASE_URL/$BIN"
-    else
-        echo "❌ 需要 curl 或 wget 来下载，但都没找到。"
-        echo "   请手动从以下地址下载并放到本脚本同目录："
-        echo "   $BASE_URL"
+    DOWNLOADED=0
+    for URL in "${MIRRORS[@]}"; do
+        if [ "$URL" = "$DIRECT_URL" ]; then
+            echo "   尝试 GitHub 直连..."
+        else
+            # 从镜像 URL 中提取域名作为提示
+            MIRROR_HOST=$(echo "$URL" | sed 's|https\?://\([^/]*\)/.*|\1|')
+            echo "   尝试镜像: $MIRROR_HOST"
+        fi
+        if command -v curl &>/dev/null; then
+            if curl -fSL --connect-timeout 10 --max-time 120 --progress-bar -o "$BIN" "$URL" 2>/dev/null; then
+                DOWNLOADED=1
+                break
+            fi
+        elif command -v wget &>/dev/null; then
+            if wget --timeout=10 --show-progress -q -O "$BIN" "$URL" 2>/dev/null; then
+                DOWNLOADED=1
+                break
+            fi
+        fi
+        echo "   ❌ 失败，尝试下一个..."
+        rm -f "$BIN"
+    done
+
+    if [ "$DOWNLOADED" -ne 1 ]; then
+        echo ""
+        echo "❌ 所有下载源均失败，请检查网络连接。"
+        echo "   你也可以手动下载并放到本脚本同目录："
+        echo "   $DIRECT_URL"
         echo ""
         echo "按回车键退出..."
         read
