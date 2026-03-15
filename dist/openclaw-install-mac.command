@@ -37,6 +37,14 @@ if [ -z "$BIN" ]; then
     VER="${RELEASE_VER#v}"
     BIN="openclaw-install-${VER}-${SUFFIX}"
 
+    # 先下载 checksums.txt 用于校验（小文件，直连即可）
+    CHECKSUMS_URL="$BASE_URL/checksums.txt"
+    EXPECTED_SHA=""
+    if curl -fsSL --connect-timeout 10 -o checksums.txt "$CHECKSUMS_URL" 2>/dev/null; then
+        EXPECTED_SHA=$(grep "$BIN" checksums.txt 2>/dev/null | awk '{print $1}')
+    fi
+    rm -f checksums.txt
+
     # GitHub 加速镜像列表（优先尝试镜像，最后回退直连）
     DIRECT_URL="$BASE_URL/$BIN"
     MIRRORS=(
@@ -53,23 +61,25 @@ if [ -z "$BIN" ]; then
         if [ "$URL" = "$DIRECT_URL" ]; then
             echo "   尝试 GitHub 直连..."
         else
-            # 从镜像 URL 中提取域名作为提示
             MIRROR_HOST=$(echo "$URL" | sed 's|https\?://\([^/]*\)/.*|\1|')
             echo "   尝试镜像: $MIRROR_HOST"
         fi
         if command -v curl &>/dev/null; then
-            if curl -fSL --connect-timeout 10 --max-time 120 --progress-bar -o "$BIN" "$URL" 2>/dev/null; then
-                DOWNLOADED=1
-                break
-            fi
+            curl -fSL --connect-timeout 10 --max-time 300 --progress-bar -o "$BIN" "$URL" 2>/dev/null || { echo "   ❌ 下载失败，尝试下一个..."; rm -f "$BIN"; continue; }
         elif command -v wget &>/dev/null; then
-            if wget --timeout=10 --show-progress -q -O "$BIN" "$URL" 2>/dev/null; then
-                DOWNLOADED=1
-                break
+            wget --timeout=10 --show-progress -q -O "$BIN" "$URL" 2>/dev/null || { echo "   ❌ 下载失败，尝试下一个..."; rm -f "$BIN"; continue; }
+        fi
+        # SHA256 校验（如果有 checksum）
+        if [ -n "$EXPECTED_SHA" ]; then
+            ACTUAL_SHA=$(shasum -a 256 "$BIN" 2>/dev/null | awk '{print $1}')
+            if [ "$ACTUAL_SHA" != "$EXPECTED_SHA" ]; then
+                echo "   ❌ 文件校验失败（可能下载不完整），尝试下一个..."
+                rm -f "$BIN"
+                continue
             fi
         fi
-        echo "   ❌ 失败，尝试下一个..."
-        rm -f "$BIN"
+        DOWNLOADED=1
+        break
     done
 
     if [ "$DOWNLOADED" -ne 1 ]; then
