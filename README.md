@@ -12,11 +12,9 @@
 
 在下载页面找到你电脑对应的文件，点击即可下载：
 
-**Mac 电脑**
-- 如果你的 Mac 是 2020 年以后买的 → 下载 [`openclaw-install-darwin-arm64`](https://github.com/AIhubmix/install-agent/releases/latest/download/openclaw-install-darwin-arm64)
-- 如果你的 Mac 比较老（Intel 处理器）→ 下载 [`openclaw-install-darwin-amd64`](https://github.com/AIhubmix/install-agent/releases/latest/download/openclaw-install-darwin-amd64)
-
-> 怎么看？点击屏幕左上角的  → **关于本机**，如果看到「Apple M1/M2/M3/M4」就选第一个，看到「Intel」就选第二个。
+**Mac 电脑** — 只需下载一个文件：
+- 下载 [`openclaw-install-mac.command`](https://github.com/AIhubmix/install-agent/releases/latest/download/openclaw-install-mac.command)，双击即可运行
+- 脚本会自动检测你的芯片类型（M 系列 / Intel），自动下载对应版本并启动
 
 **Windows 电脑**
 - 下载 [`openclaw-install-windows-amd64.exe`](https://github.com/AIhubmix/install-agent/releases/latest/download/openclaw-install-windows-amd64.exe)
@@ -30,24 +28,10 @@
 
 ### Mac
 
-1. 打开「终端」应用（在启动台搜索"终端"或"Terminal"）
-2. 把下载的文件拖进终端窗口，你会看到一个路径，**先别按回车**
-3. 回到终端，依次输入以下两行命令（把路径换成你的文件位置）：
-
-```
-chmod +x ~/Downloads/openclaw-install-darwin-arm64
-~/Downloads/openclaw-install-darwin-arm64
-```
-
-4. 浏览器会自动打开安装页面，跟着提示操作就行
+**双击 `openclaw-install-mac.command` 即可运行！** 脚本会自动识别你的芯片类型、处理权限问题并启动安装助手。
 
 > **如果 Mac 弹窗说「无法打开」或「无法验证开发者」：**
-> 打开 **系统设置 → 隐私与安全性**，往下翻，找到提示信息，点「仍要打开」，然后重新运行上面的命令。
->
-> **如果提示「已损坏」：** 在终端执行下面这行，然后重新运行：
-> ```
-> xattr -cr ~/Downloads/openclaw-install-darwin-arm64
-> ```
+> 打开 **系统设置 → 隐私与安全性**，往下翻，找到提示信息，点「仍要打开」，然后重新双击。
 
 ### Windows
 
@@ -95,7 +79,7 @@ chmod +x openclaw-install-linux-amd64
 | 问题 | 解决办法 |
 |------|---------|
 | Mac 弹窗「无法验证开发者」 | 系统设置 → 隐私与安全性 → 仍要打开 |
-| Mac 提示「已损坏」 | 终端执行 `xattr -cr 文件路径` |
+| Mac 提示「已损坏」 | 启动脚本已自动处理；如仍有问题，终端执行 `xattr -cr 文件路径` |
 | Windows 安全警告 | 点「更多信息」→「仍要运行」 |
 | 浏览器没自动打开 | 手动复制终端里的 `http://localhost:xxxxx` 地址到浏览器 |
 | 想退出程序 | 在终端按 `Ctrl+C` |
