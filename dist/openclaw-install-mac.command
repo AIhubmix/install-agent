@@ -28,9 +28,15 @@ if [ -z "$BIN" ]; then
     # 从重定向 URL 中提取版本号
     RELEASE_VER=$(echo "$RELEASE_URL" | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | head -1)
     if [ -z "$RELEASE_VER" ]; then
-        RELEASE_VER="latest"
+        echo "❌ 无法获取最新版本号，请检查网络连接。"
+        echo ""
+        echo "按回车键退出..."
+        read
+        exit 1
     fi
-    BIN="openclaw-install-${RELEASE_VER}-${SUFFIX}"
+    # 去掉 v 前缀，二进制文件名不含 v（如 openclaw-install-1.0.2-darwin-arm64）
+    VER="${RELEASE_VER#v}"
+    BIN="openclaw-install-${VER}-${SUFFIX}"
 
     echo "   下载: $BIN"
     echo ""
